@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "eslint": "npx eslint src/**/*.js src/**/*.vue src/*.js src/*.vue --fix"
   },
   "dependencies": {
     "core-js": "^3.8.3",
