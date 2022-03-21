@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import HelloWorld from "../components/HelloWorld";
+import HelloWorld from '../components/HelloWorld';
 
 export default {
-  name: "HomeView",
+  name: 'HomeView',
 
   components: {
     HelloWorld,
