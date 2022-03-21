@@ -48,3 +48,9 @@ export default {
   }),
 };
 </script>
+
+<style>
+.h-100vh {
+  height: 100vh;
+}
+</style>
