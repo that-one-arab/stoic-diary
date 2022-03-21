@@ -21,7 +21,7 @@ import WhatCanBeImproved from '../components/page/editors/WhatWentWrong/index.vu
 import NavBar from '../components/page/NavBar/index.vue';
 
 export default {
-  name: 'DiaryPage',
+  name: 'PageView',
   components: {
     WhatWentWrong,
     WhatWentRight,
