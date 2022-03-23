@@ -1,67 +1,83 @@
 <template>
-  <div>
-    <!-- Render this after the form has been submitted  -->
-    <email-sent v-if="formHasSubmitted" />
-    <!-- Render this initially -->
-    <div
-      v-else
-      class="container h-100vh d-flex align-items-center justify-content-center"
-    >
-      <div class="row">
-        <div class="mb-3">
-          <label for="usernameInput" class="form-label">Username</label>
-          <input class="form-control" id="usernameInput" v-model="username" />
+  <v-form v-model="valid">
+    <v-container>
+      <email-sent v-if="formHasSubmitted" />
+      <div v-else class="d-flex justify-center align-center pb-10 h-100vh">
+        <div class="my-form-layout">
+          <v-card class="pa-8">
+            <v-row>
+              <v-col cols="12" md="12">
+                <v-text-field
+                  v-model="username"
+                  :rules="usernameRules"
+                  :counter="10"
+                  label="Username"
+                  required
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="12">
+                <v-text-field
+                  v-model="email"
+                  :rules="emailRules"
+                  label="E-mail"
+                  required
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="12">
+                <v-text-field
+                  v-model="password"
+                  label="Password"
+                  required
+                  type="password"
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="12" md="12" class="d-flex justify-end">
+                <v-btn elevation="2">Register</v-btn>
+              </v-col>
+            </v-row>
+          </v-card>
         </div>
-        <div class="mb-3">
-          <label for="emailInput" class="form-label">Email address</label>
-          <input
-            type="email"
-            class="form-control"
-            id="emailInput"
-            aria-describedby="emailHelp"
-            v-model="email"
-          />
-          <div id="emailHelp" class="form-text">
-            We'll never share your email with anyone else.
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="passwordInput" class="form-label">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="passwordInput"
-            v-model="password"
-          />
-        </div>
-        <button class="btn btn-primary" @click="handleSubmit">Submit</button>
       </div>
-    </div>
-  </div>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
 import EmailSent from '../components/Register/EmailSent.vue';
 
 export default {
-  components: { EmailSent },
-  name: 'RegisterView',
+  name: 'LoginView',
+  components: {
+    EmailSent,
+  },
   data() {
     return {
+      valid: false,
+
       username: '',
+      usernameRules: [
+        (v) => !!v || 'Username is required',
+        (v) => v.length <= 10 || 'Username must be less than 10 characters',
+      ],
       email: '',
+      emailRules: [
+        (v) => !!v || 'E-mail is required',
+        (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+      ],
+
       password: '',
+
       formHasSubmitted: false,
     };
   },
   methods: {
     handleSubmit() {
       // Form values
-      //   const { username, email, password } = this
-      this.formHasSubmitted = true;
+      //   const { email, password, rememberMe } = this;
     },
   },
 };
 </script>
-
-<style></style>
