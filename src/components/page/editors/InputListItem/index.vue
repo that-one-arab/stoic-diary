@@ -2,14 +2,12 @@
   <div>
     <div class="class-x">
       <p class="class-y">
-        <input type="text" class="class-z" />
-        <!-- <span class="error-container">some error here</span> -->
-      </p>
-    </div>
-    <div class="class-x">
-      <p class="class-y">
-        <input type="text" class="class-z" />
-        <!-- <span class="error-container">some error here</span> -->
+        <input
+          type="text"
+          class="class-z"
+          v-bind:value="value"
+          v-on:input="$emit('input', $event.target.value)"
+        />
       </p>
     </div>
   </div>
@@ -18,6 +16,9 @@
 <script>
 export default {
   name: 'InputListItem',
+  props: {
+    value: String,
+  },
 };
 </script>
 

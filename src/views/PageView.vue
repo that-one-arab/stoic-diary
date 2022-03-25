@@ -1,31 +1,44 @@
 <template>
-  <div class="container">
-    <NavBar />
-    <br />
-    <WhatWentWrong v-model="whatWentWrong" />
-    <WhatWentRight v-model="whatWentRight" />
-    <WhatCanBeImproved v-model="whatCanBeImproved" />
-    <br />
-    <div class="footer">
-      <button class="btn btn-outline-success ml-auto">
-        <i class="fas fa-pen-fancy"></i>
-      </button>
+  <v-container>
+    <div class="d-flex justify-center mb-5">
+      <NavBar />
     </div>
-  </div>
+    <div class="d-flex justify-center">
+      <v-card width="60%">
+        <v-row class="ma-4">
+          <v-col lg="12">
+            <WhatWentWrong v-model="whatWentWrong" />
+          </v-col>
+          <v-col lg="12">
+            <!-- <WhatWentRight v-model="whatWentRight" /> -->
+          </v-col>
+          <v-col lg="12">
+            <!-- <WhatCanBeImproved v-model="whatCanBeImproved" /> -->
+          </v-col>
+          <br />
+          <!-- <div class="footer">
+              <button class="btn btn-outline-success ml-auto">
+                <i class="fas fa-pen-fancy"></i>
+              </button>
+            </div> -->
+        </v-row>
+      </v-card>
+    </div>
+  </v-container>
 </template>
 
 <script>
 import WhatWentWrong from '../components/page/editors/WhatWentWrong/index.vue';
-import WhatWentRight from '../components/page/editors/WhatWentWrong/index.vue';
-import WhatCanBeImproved from '../components/page/editors/WhatWentWrong/index.vue';
+// import WhatWentRight from '../components/page/editors/WhatWentWrong/index.vue';
+// import WhatCanBeImproved from '../components/page/editors/WhatWentWrong/index.vue';
 import NavBar from '../components/page/NavBar/index.vue';
 
 export default {
   name: 'PageView',
   components: {
     WhatWentWrong,
-    WhatWentRight,
-    WhatCanBeImproved,
+    // WhatWentRight,
+    // WhatCanBeImproved,
     NavBar,
   },
   data() {

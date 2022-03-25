@@ -54,6 +54,10 @@ export default {
   height: 100vh;
 }
 
+.clickable {
+  cursor: pointer;
+}
+
 .my-form-layout {
   width: 40%;
 }
