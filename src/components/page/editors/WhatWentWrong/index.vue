@@ -8,12 +8,14 @@
       class=""
       :key="i"
       :i="i"
+      :isFocused="focusedElementIndex === i"
       v-model="item.value"
       ref="listRef"
       @addNewLine="addNewLineHandler(i)"
       @removeLine="removeLineHandler"
       @focusAboveLine="focusAboveLineHandler"
       @focusBelowLine="focusBelowLineHandler"
+      @refocus="focusedElementIndex = i"
     />
     <div class="d-flex justify-end">
       <v-icon color="blue" large class="clickable" @click="addNewLineHandler()">
@@ -36,6 +38,7 @@ export default {
   data() {
     return {
       listItems: [],
+      focusedElementIndex: undefined,
       templateClasses: {
         inputContainer: ['mb-3', 'd-flex', 'flex-column', 'align-items-start'],
         label: ['form-label', 'mb-6'],
@@ -70,6 +73,7 @@ export default {
     },
 
     focusBelowLineHandler(index) {
+      console.info('Focusing below line!');
       index + 1 <= this.listItems.length && this.focusLine(index + 1);
     },
 
@@ -78,9 +82,11 @@ export default {
     focusLine(index, { waitForNextTick = false } = {}) {
       if (!waitForNextTick) {
         this.$refs.listRef[index].$el.querySelector('input').focus();
+        this.focusedElementIndex = index;
       } else {
         this.$nextTick(() => {
           this.$refs.listRef[index].$el.querySelector('input').focus();
+          this.focusedElementIndex = index;
         });
       }
     },
@@ -94,5 +100,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

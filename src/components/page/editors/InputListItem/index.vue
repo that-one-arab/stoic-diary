@@ -6,10 +6,11 @@
       class="list-input-field"
       v-bind:value="value"
       v-on:input="$emit('input', $event.target.value)"
+      @click="$emit('refocus')"
       @keyup.enter="$emit('addNewLine')"
       @keyup.delete="$emit('removeLine', i)"
-      @keyup.up="$emit('focusAboveLine', i)"
-      @keyup.down="$emit('focusBelowLine', i)"
+      @keyup.up="handleKeyup"
+      @keyup.down="handleKeydown"
     />
     <v-icon
       color="red"
@@ -18,6 +19,17 @@
     >
       mdi-close-box
     </v-icon>
+    <ul v-if="false" class="myUL">
+      <li><a class="searchbox-elements-selected" href="#">Adele</a></li>
+      <li><a class="searchbox-elements" href="#">Agnes</a></li>
+
+      <li><a class="searchbox-elements" href="#">Billy</a></li>
+      <li><a class="searchbox-elements" href="#">Bob</a></li>
+
+      <li><a class="searchbox-elements" href="#">Calvin</a></li>
+      <li><a class="searchbox-elements" href="#">Christina</a></li>
+      <li><a class="searchbox-elements" href="#">Cindy</a></li>
+    </ul>
   </div>
 </template>
 
@@ -28,10 +40,31 @@ export default {
     value: String,
     fieldIndex: Number,
     i: Number,
+    isFocused: Boolean,
+  },
+  data() {
+    return {
+      suggestionDropdown: {
+        isOpen: false,
+        didReturnResults: false,
+      },
+    };
   },
   computed: {
     listNumber() {
       return this.i + 1;
+    },
+  },
+  methods: {
+    handleKeyup() {
+      if (this.isFocused) {
+        console.info('Focused!');
+      } else {
+        this.$emit('focusAboveLine', this.i);
+      }
+    },
+    handleKeydown() {
+      this.$emit('focusBelowLine', this.i);
     },
   },
 };
@@ -70,5 +103,39 @@ export default {
 
 .list-input-close {
   margin-left: 3px;
+}
+
+.myUL {
+  position: absolute;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 20px;
+  width: 450px;
+  height: 200px;
+  overflow: auto;
+  z-index: 200;
+}
+
+.searchbox-elements {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 14px;
+  color: black;
+  display: block;
+}
+
+.searchbox-elements-selected {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #36bcf18f;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 14px;
+  color: rgb(63, 6, 6);
+  display: block;
 }
 </style>
