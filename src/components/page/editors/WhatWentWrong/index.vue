@@ -12,13 +12,15 @@
       placeholder="..."
     ></textarea> -->
     <input-list-item
-      class="mb-2"
       v-for="(item, i) in listItems"
+      class="mb-2"
       :key="i"
       v-model="item.value"
+      ref="testRef"
+      @addNewLine="addNewLineHandler(i)"
     />
     <div class="d-flex justify-end">
-      <v-icon color="blue" large class="clickable" @click="addNewLineHandler">
+      <v-icon color="blue" large class="clickable" @click="addNewLineHandler()">
         mdi-plus-box
       </v-icon>
     </div>
@@ -46,8 +48,14 @@ export default {
     };
   },
   methods: {
-    addNewLineHandler() {
-      console.info('clicked');
+    addNewLineHandler(index = null) {
+      this.listItems = [...this.listItems, { value: '' }];
+      const nextIndex =
+        typeof index === 'number' ? index + 1 : this.listItems.length - 1;
+
+      this.$nextTick(() => {
+        this.$refs.testRef[nextIndex].$el.querySelector('input').focus();
+      });
     },
   },
   created() {
@@ -55,12 +63,10 @@ export default {
       {
         value: '',
       },
+      {
+        value: '',
+      },
     ];
-  },
-  watch: {
-    listItems(val) {
-      console.info('Update, value: ', val, ' current list: ', this.listItems);
-    },
   },
 };
 </script>

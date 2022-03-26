@@ -7,6 +7,7 @@
           class="class-z"
           v-bind:value="value"
           v-on:input="$emit('input', $event.target.value)"
+          @keyup.enter="$emit('addNewLine')"
         />
       </p>
     </div>
@@ -18,6 +19,7 @@ export default {
   name: 'InputListItem',
   props: {
     value: String,
+    fieldIndex: Number,
   },
 };
 </script>
