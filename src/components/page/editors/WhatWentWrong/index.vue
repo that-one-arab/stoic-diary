@@ -3,21 +3,17 @@
     <label for="whatWentWrong" :class="[templateClasses.label]"
       >What went wrong</label
     >
-    <!-- <textarea
-      :class="[templateClasses.textArea]"
-      id="whatWentWrong"
-      v-bind:value="whatWentWrong"
-      v-on:input="$emit('input', $event.target.value)"
-      rows="6"
-      placeholder="..."
-    ></textarea> -->
     <input-list-item
       v-for="(item, i) in listItems"
-      class="mb-2"
+      class=""
       :key="i"
+      :i="i"
       v-model="item.value"
-      ref="testRef"
+      ref="listRef"
       @addNewLine="addNewLineHandler(i)"
+      @removeLine="removeLineHandler"
+      @focusAboveLine="focusAboveLineHandler"
+      @focusBelowLine="focusBelowLineHandler"
     />
     <div class="d-flex justify-end">
       <v-icon color="blue" large class="clickable" @click="addNewLineHandler()">
@@ -42,7 +38,7 @@ export default {
       listItems: [],
       templateClasses: {
         inputContainer: ['mb-3', 'd-flex', 'flex-column', 'align-items-start'],
-        label: ['form-label', 'mb-3'],
+        label: ['form-label', 'mb-6'],
         textArea: ['form-control', 'border'],
       },
     };
@@ -50,19 +46,47 @@ export default {
   methods: {
     addNewLineHandler(index = null) {
       this.listItems = [...this.listItems, { value: '' }];
+      /** If index is not supplied: simply add and focus the last item in the list */
       const nextIndex =
         typeof index === 'number' ? index + 1 : this.listItems.length - 1;
 
+      this.focusLine(nextIndex, { waitForNextTick: true });
+    },
+
+    removeLineHandler(index) {
+      this.listItems.length !== 1 && this.listItems.splice(index, 1);
       this.$nextTick(() => {
-        this.$refs.testRef[nextIndex].$el.querySelector('input').focus();
+        /** If deleted el is last el: list of inputs will lose focus so we handle it here */
+        if (document.activeElement.tagName === 'BODY') {
+          const lastIndex = this.listItems.length - 1;
+          this.$refs.listRef[lastIndex].$el.querySelector('input').focus();
+          this.focusLine(lastIndex);
+        }
       });
+    },
+
+    focusAboveLineHandler(index) {
+      index - 1 >= 0 && this.focusLine(index - 1);
+    },
+
+    focusBelowLineHandler(index) {
+      index + 1 <= this.listItems.length && this.focusLine(index + 1);
+    },
+
+    /** HELPERS */
+
+    focusLine(index, { waitForNextTick = false } = {}) {
+      if (!waitForNextTick) {
+        this.$refs.listRef[index].$el.querySelector('input').focus();
+      } else {
+        this.$nextTick(() => {
+          this.$refs.listRef[index].$el.querySelector('input').focus();
+        });
+      }
     },
   },
   created() {
     this.listItems = [
-      {
-        value: '',
-      },
       {
         value: '',
       },

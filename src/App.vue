@@ -50,6 +50,11 @@ export default {
 </script>
 
 <style>
+/* Override */
+.v-application {
+  line-height: 0;
+}
+
 .h-100vh {
   height: 100vh;
 }
