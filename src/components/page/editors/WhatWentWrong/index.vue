@@ -73,7 +73,6 @@ export default {
     },
 
     focusBelowLineHandler(index) {
-      console.info('Focusing below line!');
       index + 1 <= this.listItems.length && this.focusLine(index + 1);
     },
 
