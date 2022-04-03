@@ -73,7 +73,7 @@ export default {
     },
 
     focusBelowLineHandler(index) {
-      index + 1 <= this.listItems.length && this.focusLine(index + 1);
+      index + 1 < this.listItems.length && this.focusLine(index + 1);
     },
 
     /** HELPERS */
