@@ -7,13 +7,13 @@
       <v-card width="60%">
         <v-row class="ma-4">
           <v-col lg="12">
-            <WhatWentWrong v-model="whatWentWrong" />
+            <WhatWentWrong />
           </v-col>
           <v-col lg="12">
-            <!-- <WhatWentRight v-model="whatWentRight" /> -->
+            <WhatWentRight />
           </v-col>
           <v-col lg="12">
-            <!-- <WhatCanBeImproved v-model="whatCanBeImproved" /> -->
+            <WhatCanBeImproved />
           </v-col>
           <br />
           <!-- <div class="footer">
@@ -29,16 +29,16 @@
 
 <script>
 import WhatWentWrong from '../components/page/editors/WhatWentWrong/index.vue';
-// import WhatWentRight from '../components/page/editors/WhatWentWrong/index.vue';
-// import WhatCanBeImproved from '../components/page/editors/WhatWentWrong/index.vue';
+import WhatWentRight from '../components/page/editors/WhatWentRight/index.vue';
+import WhatCanBeImproved from '../components/page/editors/WhatCanBeImproved/index.vue';
 import NavBar from '../components/page/NavBar/index.vue';
 
 export default {
   name: 'PageView',
   components: {
     WhatWentWrong,
-    // WhatWentRight,
-    // WhatCanBeImproved,
+    WhatWentRight,
+    WhatCanBeImproved,
     NavBar,
   },
   data() {
