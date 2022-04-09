@@ -25,13 +25,13 @@
       class="myUL"
       id="suggestions-ul"
     >
-      <li v-for="suggestion in suggestions" :key="suggestion.id">
+      <li v-for="(suggestion, i) in suggestions" :key="suggestion.id">
         <a
           class="dropdown_elements"
           v-bind:class="{ dropdown_elements_hovered: suggestion.hovered }"
           href="#"
-          :id="`suggestion-${i}-${suggestion.id}`"
-          @click="scrollSuggestions(`suggestion-${i}`)"
+          :id="`suggestion-${suggestion.id}`"
+          @click="fillSuggestionToInput(suggestion.value, i)"
         >
           {{ suggestion.value }}
         </a>
@@ -174,7 +174,6 @@ export default {
         if (hoveredSuggestionIndex !== -1) {
           // Hover the next suggestion (below the current one)
           const nextIndex = hoveredSuggestionIndex + 1;
-
           // Make sure the newIndex is between the length of the suggestions array
           if (this.suggestions.length - 1 > nextIndex) {
             this.hoverSuggestion(nextIndex, hoveredSuggestionIndex);
@@ -216,12 +215,19 @@ export default {
         const hoveredSuggestionValue =
           this.suggestions[hoveredSuggestionIndex].value;
         // Change the input value to the hovered suggestion value
-        this.$emit('input', hoveredSuggestionValue);
-        this.handleCloseSuggestionsDropdown();
-        this.hoverSuggestion(null, hoveredSuggestionIndex);
+        this.fillSuggestionToInput(
+          hoveredSuggestionValue,
+          hoveredSuggestionIndex
+        );
       } else {
         this.$emit('addNewLine');
       }
+    },
+
+    fillSuggestionToInput(suggesionValue, suggestionIndex) {
+      this.$emit('input', suggesionValue);
+      this.handleCloseSuggestionsDropdown();
+      this.hoverSuggestion(null, suggestionIndex);
     },
 
     scrollSuggestions(scrollDirection) {
@@ -235,7 +241,7 @@ export default {
 
       // Get the height of one of the list elements (it doesn't matter since they are all the same height, we chose index 0)
       const heightOfListElement = document.getElementById(
-        `suggestion-${this.i}-${visibleListElements[0].id}`
+        `suggestion-${visibleListElements[0].id}`
       ).scrollHeight;
 
       const heightOfAllVisibleElements =
@@ -255,10 +261,8 @@ export default {
      */
     isListElementVisible(suggestionId) {
       const container = document.getElementById('suggestions-ul');
-      const focusedInputElIndex = this.i;
-      const ele = document.getElementById(
-        `suggestion-${focusedInputElIndex}-${suggestionId}`
-      );
+
+      const ele = document.getElementById(`suggestion-${suggestionId}`);
 
       const eleTop = ele.offsetTop;
       const eleBottom = eleTop + ele.clientHeight;
