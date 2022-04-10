@@ -59,6 +59,13 @@ export default {
     },
   },
 
+  watch: {
+    // Keep the state updated if user uses browser history to go back and forth
+    $route: function (to) {
+      this.picker = to.query.date;
+    },
+  },
+
   created() {
     this.picker = parseDateToYYYYMMDD('today');
   },
