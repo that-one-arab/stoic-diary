@@ -5,7 +5,7 @@
     </div>
     <div class="d-flex justify-center">
       <v-card width="60%">
-        <v-row class="ma-4">
+        <v-row class="ma-4 no-flex">
           <v-col lg="12">
             <WhatWentWrong />
           </v-col>
@@ -55,5 +55,10 @@ export default {
 .footer {
   display: flex;
   flex-direction: row-reverse;
+}
+
+/* Some bug with v-row that doesn't obey the breakpoints (or maybe it's just me who's bugged...) */
+.no-flex {
+  display: inherit;
 }
 </style>
