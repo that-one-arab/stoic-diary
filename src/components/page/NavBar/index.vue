@@ -1,31 +1,89 @@
 <template>
-  <nav class="navbar sticky-top navbar-light bg-light">
-    <div class="container-fluid">
-      <!-- <p class="navbar-brand">Fixed top</p> -->
-      <i class="fas fa-arrow-left clickable"></i>
-      <div class="d-inline-flex">
-        <div class="ms-2">
-          <input type="date" :value="getParsedDate()" class="primary" />
-          <button class="btn btn-primary">
-            <i class="far fa-edit"> </i>
-          </button>
-        </div>
+  <v-card class="temp1 temp3">
+    <v-banner color="light-blue lighten-5">
+      <div class="d-flex justify-space-between">
+        <v-icon large class="clickable" @click="pushToPrevDay">
+          mdi-arrow-left
+        </v-icon>
+
+        <v-btn color="primary" outlined @click="pickerOn = true">
+          {{ picker }}
+        </v-btn>
+
+        <v-icon large class="clickable" @click="pushToNextDay">
+          mdi-arrow-right
+        </v-icon>
       </div>
-      <i class="fas fa-arrow-right clickable"></i>
-    </div>
-  </nav>
+      <!-- The date picker -->
+      <v-row v-if="pickerOn" justify="center" class="temp2">
+        <v-date-picker v-model="picker" @change="handleChange"></v-date-picker>
+      </v-row>
+    </v-banner>
+  </v-card>
 </template>
 
 <script>
+import {
+  parseDateToYYYYMMDD,
+  addDays,
+  deductDays,
+} from '../../../util/date/index.js';
+
 export default {
   name: 'NavBar',
-
+  data() {
+    return {
+      pickerOn: false,
+      picker: '',
+    };
+  },
   methods: {
-    getParsedDate() {
-      return new Date().toISOString().split('T')[0];
+    handleChange(date) {
+      this.picker = date;
+      this.pickerOn = false;
+      this.$router.push(`/page?date=${date}`);
     },
+
+    pushToNextDay() {
+      const newDate = addDays(this.picker, 1);
+      const parsedDate = parseDateToYYYYMMDD(newDate);
+      this.picker = parsedDate;
+      this.$router.push(`/page?date=${parsedDate}`);
+    },
+
+    pushToPrevDay() {
+      const newDate = deductDays(this.picker, 1);
+      const parsedDate = parseDateToYYYYMMDD(newDate);
+      this.picker = parsedDate;
+      this.$router.push(`/page?date=${parsedDate}`);
+    },
+  },
+
+  created() {
+    this.picker = parseDateToYYYYMMDD('today');
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.temp1 {
+  position: relative;
+}
+
+.temp2 {
+  margin-top: 10px;
+  position: absolute;
+  left: 39%;
+  z-index: 20;
+}
+
+@media screen and (max-width: 1024px) {
+  .temp2 {
+    left: 26%;
+  }
+}
+
+.temp3 {
+  width: 60%;
+}
+</style>
