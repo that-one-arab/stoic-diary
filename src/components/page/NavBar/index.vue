@@ -67,7 +67,10 @@ export default {
   },
 
   created() {
-    this.picker = parseDateToYYYYMMDD('today');
+    // Make sure the value of the date picker and the route query param is today's date
+    const currentDate = parseDateToYYYYMMDD('today');
+    this.picker = currentDate;
+    this.$router.push(`/page?date=${currentDate}`);
   },
 };
 </script>
