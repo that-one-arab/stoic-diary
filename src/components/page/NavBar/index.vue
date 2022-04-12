@@ -39,23 +39,25 @@ export default {
   },
   methods: {
     handleChange(date) {
-      this.picker = date;
       this.pickerOn = false;
-      this.$router.push(`/page?date=${date}`);
+      this.handleAssignDate(date);
     },
 
     pushToNextDay() {
       const newDate = addDays(this.picker, 1);
       const parsedDate = parseDateToYYYYMMDD(newDate);
-      this.picker = parsedDate;
-      this.$router.push(`/page?date=${parsedDate}`);
+      this.handleAssignDate(parsedDate);
     },
 
     pushToPrevDay() {
       const newDate = deductDays(this.picker, 1);
       const parsedDate = parseDateToYYYYMMDD(newDate);
-      this.picker = parsedDate;
-      this.$router.push(`/page?date=${parsedDate}`);
+      this.handleAssignDate(parsedDate);
+    },
+
+    handleAssignDate(date) {
+      this.picker = date;
+      this.$router.push(`/page?date=${date}`);
     },
   },
 
@@ -69,8 +71,7 @@ export default {
   created() {
     // Make sure the value of the date picker and the route query param is today's date
     const currentDate = parseDateToYYYYMMDD('today');
-    this.picker = currentDate;
-    this.$router.push(`/page?date=${currentDate}`);
+    this.handleAssignDate(currentDate);
   },
 };
 </script>
