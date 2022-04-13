@@ -1,0 +1,3 @@
+keyword: "Refactor" When refactoring
+keyword: "Feat" when adding new feature
+Keyword: "Fix" when fixing a bug
