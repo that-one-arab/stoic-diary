@@ -35,14 +35,9 @@
 </template>
 
 <script>
-// import HelloWorld from '../components/HelloWorld';
-
 export default {
   name: 'DashboardView',
 
-  components: {
-    // HelloWorld,
-  },
   data() {
     return {
       links: ['Dashboard', 'Page', 'Settings', 'Log Out'],
