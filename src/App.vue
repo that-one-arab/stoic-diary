@@ -37,13 +37,19 @@ export default {
   name: 'App',
 
   data: () => ({
-    links: ['Home', 'Page', 'Settings', 'Log Out'],
+    links: ['Dashboard', 'Page', 'Settings', 'Log Out'],
   }),
 
   methods: {
     handleRouterPush(link) {
       this.$router.push(`/${link.toLowerCase()}`);
     },
+  },
+
+  created() {
+    const router = this.$router;
+    const currentRoute = router.currentRoute.fullPath;
+    if (currentRoute === '/') router.push('/dashboard');
   },
 };
 </script>
