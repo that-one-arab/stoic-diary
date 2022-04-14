@@ -45,12 +45,6 @@ export default {
       this.$router.push(`/${link.toLowerCase()}`);
     },
   },
-
-  created() {
-    const router = this.$router;
-    const currentRoute = router.currentRoute.fullPath;
-    if (currentRoute === '/') router.push('/dashboard');
-  },
 };
 </script>
 
