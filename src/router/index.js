@@ -29,6 +29,11 @@ const routes = [
     name: 'Page',
     component: () => import('../views/PageView.vue'),
   },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('../views/SettingsView.vue'),
+  },
 ];
 
 const router = new VueRouter({

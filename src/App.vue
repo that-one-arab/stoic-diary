@@ -77,4 +77,8 @@ export default {
     width: 85%;
   }
 }
+
+.error-text {
+  color: red;
+}
 </style>
