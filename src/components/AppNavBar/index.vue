@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color="white" flat>
+  <v-app-bar v-if="isNavbarDisplayed" app color="white" flat>
     <v-container class="py-0 fill-height">
       <v-avatar class="mr-10" color="grey darken-1" size="32"></v-avatar>
 
@@ -31,13 +31,25 @@
 export default {
   name: 'AppNavBar',
 
-  data: () => ({
-    links: ['Dashboard', 'Page', 'Settings', 'Log Out'],
-  }),
+  data() {
+    return {
+      links: ['Dashboard', 'Page', 'Settings', 'Log Out'],
+      isNavbarDisplayed: false,
+    };
+  },
 
   methods: {
     handleRouterPush(link) {
       this.$router.push(`/${link.toLowerCase()}`);
+    },
+  },
+
+  watch: {
+    // On each route change
+    $route(value) {
+      // If the route is Login or Register route, remove the navbar; else display the navbar
+      if (value.name.search(/(Login|Register)/i)) this.isNavbarDisplayed = true;
+      else this.isNavbarDisplayed = false;
     },
   },
 };

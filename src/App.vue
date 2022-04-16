@@ -1,32 +1,22 @@
 <template>
   <v-app>
-    <app-nav-bar v-if="isNavbarDisplayed" />
+    <app-nav-bar />
     <v-main class="grey lighten-3">
       <router-view />
     </v-main>
+    <snack-bar />
   </v-app>
 </template>
 
 <script>
 import AppNavBar from './components/AppNavBar';
+import SnackBar from '@/components/SnackBar';
+
 export default {
   name: 'App',
   components: {
     AppNavBar,
-  },
-  data() {
-    return {
-      isNavbarDisplayed: false,
-    };
-  },
-
-  watch: {
-    // On each route change
-    $route(value) {
-      // If the route is Login or Register route, remove the navbar; else display the navbar
-      if (value.name.search(/(Login|Register)/i)) this.isNavbarDisplayed = true;
-      else this.isNavbarDisplayed = false;
-    },
+    SnackBar,
   },
 };
 </script>
