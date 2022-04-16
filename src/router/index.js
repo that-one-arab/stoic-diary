@@ -46,12 +46,16 @@ const router = new VueRouter({
   routes,
 });
 
-const isUserAuthenticated = true;
+const _isUserLoggedIn = true;
+
+function isUserLoggedIn(to, from, next) {
+  if (!_isUserLoggedIn && to.path !== '/login') return next({ path: '/login' });
+  else return next();
+}
 
 router.beforeEach((to, from, next) => {
-  if (!isUserAuthenticated && to.path !== '/login')
-    return next({ path: '/login' });
-  else return next();
+  // Verify if the is logged in
+  isUserLoggedIn(to, from, next);
 });
 
 export default router;
