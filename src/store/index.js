@@ -3,10 +3,20 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+const state = {
+  isUserLoggedIn: false,
+};
+
+const mutations = {
+  logInUser(state) {
+    state.isUserLoggedIn = true;
+  },
+};
+
 export default new Vuex.Store({
-  state: {},
+  state,
   getters: {},
-  mutations: {},
+  mutations,
   actions: {},
   modules: {},
 });

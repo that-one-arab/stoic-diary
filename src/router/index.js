@@ -1,3 +1,4 @@
+import store from '@/store';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
@@ -45,10 +46,9 @@ const router = new VueRouter({
   routes,
 });
 
-const _isUserLoggedIn = true;
-
 function isUserLoggedIn(to, from, next) {
-  if (!_isUserLoggedIn && to.path !== '/login') return next({ path: '/login' });
+  if (store.state.isUserLoggedIn === false && to.path !== '/login')
+    return next({ path: '/login' });
   else return next();
 }
 
