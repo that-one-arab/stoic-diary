@@ -3,7 +3,7 @@
     <v-container>
       <div class="d-flex justify-center align-center pb-10 h-100vh">
         <div class="my-form-layout">
-          <v-card class="pa-8">
+          <v-card class="pa-8" :loading="false">
             <v-row>
               <v-col cols="12" md="12">
                 <v-text-field
@@ -12,6 +12,7 @@
                   :counter="10"
                   label="Username or Email"
                   required
+                  @keyup.enter="handleSubmit"
                 ></v-text-field>
               </v-col>
 
@@ -21,6 +22,7 @@
                   label="Password"
                   required
                   type="password"
+                  @keyup.enter="handleSubmit"
                 ></v-text-field>
               </v-col>
 
