@@ -34,9 +34,16 @@
                 ></v-text-field>
               </v-col>
 
-              <v-col cols="12" md="12" class="d-flex justify-end">
-                <v-btn elevation="2">Register</v-btn>
-              </v-col>
+              <v-row class="d-flex justify-space-between mt-4">
+                <v-col cols="12" sm="12" md="12" lg="6">
+                  <p>
+                    <a href="/login">Or click here to login</a>
+                  </p>
+                </v-col>
+                <v-col cols="12" sm="12" md="3" lg="3">
+                  <v-btn elevation="2" @click="handleSubmit">Register</v-btn>
+                </v-col>
+              </v-row>
             </v-row>
           </v-card>
         </div>
@@ -77,6 +84,7 @@ export default {
     handleSubmit() {
       // Form values
       //   const { email, password, rememberMe } = this;
+      this.$router.push('/login');
     },
   },
 };
