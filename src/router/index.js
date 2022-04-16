@@ -6,8 +6,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Root',
-    component: () => import('../views/RootView.vue'),
+    redirect: '/dashboard',
   },
   {
     path: '/login',
